@@ -1,0 +1,21 @@
+.todo-form{
+    marginBottom: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85%;
+
+}
+
+.todo-form-input{
+    padding: 8px;
+    width: 80%;
+    border-radius: 15px;
+    color: aliceblue;
+}
+
+.todo-form-button{
+    padding: 8px;
+    border-radius: 15px;
+    color: aliceblue;
+}

@@ -1,0 +1,16 @@
+.todo-item-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    color: #ffffff;
+}
+
+.todo-item{
+    marginRight: 8px;
+}
+
+.todo-item-delete-button{
+    border-radius: 15px;
+
+}
