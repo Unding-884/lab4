@@ -29,7 +29,11 @@ export function useTodos() {
       await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       setTodos((prev) => prev.filter((t) => t.id !== id));
     } catch (err) {
+      // Report the error but still toggle locally so client-only todos update immediately.
       setError(err.message);
+      setTodos((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+      );
     }
   };
 
@@ -42,10 +46,18 @@ export function useTodos() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ completed: !todo.completed }),
       });
-      const updated = await res.json();
-      setTodos((prev) =>
-        prev.map((t) => (t.id === id ? { ...t, completed: updated.completed } : t))
-      );
+      if (res.ok) {
+        const updated = await res.json();
+        setTodos((prev) =>
+          prev.map((t) => (t.id === id ? { ...t, completed: updated.completed } : t))
+        );
+      } else {
+        // If the API doesn't accept the update (eg. local-only todo),
+        // fall back to toggling the todo locally so the UI updates immediately.
+        setTodos((prev) =>
+          prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+        );
+      }
     } catch (err) {
       setError(err.message);
     }

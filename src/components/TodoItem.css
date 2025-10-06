@@ -1,5 +1,5 @@
 .todo-item-container{
-    width: 100%;
+    width: 595px;
     display: flex;
     justify-content: space-between;
     margin: 8px 0;
@@ -7,7 +7,7 @@
 }
 
 .todo-item{
-    marginRight: 8px;
+    margin-right: 8px;
 }
 
 .todo-item-delete-button{
