@@ -7,42 +7,37 @@ A React-based Todo List application that demonstrates component composition, sta
 ```mermaid
 graph TD
     %% Root Component
-    A[App.jsx] --> B[TodoList.jsx]
+    A[App.jsx] --> TL[TodoList.jsx]
     
     %% Main TodoList Component
-    B --> C[AddTodoForm.jsx]
-    B --> D[TodoItem.jsx]
-    B --> E[useTodos Hook]
+    TL --> ATF[AddTodoForm.jsx]
+    TL --> TI[TodoItem.jsx]
+    TL --> UTH[useTodos Hook]
     
     %% External API
-    F[DummyJSON API<br/>https://dummyjson.com/todos] --> E
+    DJOSN[DummyJSON API<br/>https://dummyjson.com/todos] --> UTH
     
     %% Data Flow - State Management
-    E --> |todos, isLoading, error| B
-    E --> |addTodo, deleteTodo, toggleTodo| B
+    UTH --> |todos, isLoading, error| TL
+    UTH --> |addTodo, deleteTodo, toggleTodo| TL
     
     %% Props Flow
-    B --> |onAdd: addTodo| C
-    B --> |todo, onDelete, onToggle| D
+    TL --> |onAdd: addTodo| ATF
+    TL --> |todo, onDelete, onToggle| TI
     
     %% User Interactions
-    C --> |handleSubmit| G[onAdd Function]
-    D --> |onClick| H[onDelete Function]
-    D --> |onChange| I[onToggle Function]
+    ATF --> |handleSubmit| G[onAdd Function]
+    TI --> |onClick| H[onDelete Function]
+    TI --> |onChange| I[onToggle Function]
     
     %% Function Calls Back to Hook
-    G --> |addTodo| E
-    H --> |deleteTodo| E
-    I --> |toggleTodo| E
+    AT --> |addTodo| UTH
+    DT --> |deleteTodo| UTH
+    TT --> |toggleTodo| UTH
     
     %% State Updates
-    E --> |setState| J[Local State<br/>todos, isLoading, error]
-    
-    %% Styling
-    K[TodoList.css] --> B
-    L[AddTodoForm.css] --> C
-    M[TodoItem.css] --> D
-    
+    UTH --> |setState| J[Local State<br/>todos, isLoading, error]
+
     %% Component Details
     subgraph "Component Details"
         N["AddTodoForm
@@ -65,11 +60,11 @@ graph TD
     
     %% Styling connections
     style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
-    style E fill:#fce4ec
-    style F fill:#f0f4c3
+    style TL fill:#f3e5f5
+    style ATF fill:#e8f5e8
+    style TI fill:#fff3e0
+    style UTH fill:#fce4ec
+    style DJOSN fill:#f0f4c3
 ```
 
 ## Architecture Overview
