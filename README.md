@@ -14,12 +14,8 @@ graph TD
     TL --> TI[TodoItem.jsx]
     TL --> UTH[useTodos Hook]
     
-    %% External API
-    DJOSN[DummyJSON API<br/>https://dummyjson.com/todos] --> UTH
-    
     %% Data Flow - State Management
-    UTH --> |todos, isLoading, error| TL
-    UTH --> |addTodo, deleteTodo, toggleTodo| TL
+    UTH --> |todos, isLoading, error, addTodo, deleteTodo, toggleTodo| TL
     
     %% Props Flow
     TL --> |onAdd: addTodo| ATF
@@ -29,11 +25,6 @@ graph TD
     ATF --> |handleSubmit| G[onAdd Function]
     TI --> |onClick| H[onDelete Function]
     TI --> |onChange| I[onToggle Function]
-    
-    %% Function Calls Back to Hook
-    AT --> |addTodo| UTH
-    DT --> |deleteTodo| UTH
-    TT --> |toggleTodo| UTH
     
     %% State Updates
     UTH --> |setState| J[Local State<br/>todos, isLoading, error]
@@ -57,14 +48,6 @@ graph TD
         - Error handling
         - Loading states"]
     end
-    
-    %% Styling connections
-    style A fill:#e1f5fe
-    style TL fill:#f3e5f5
-    style ATF fill:#e8f5e8
-    style TI fill:#fff3e0
-    style UTH fill:#fce4ec
-    style DJOSN fill:#f0f4c3
 ```
 
 ## Architecture Overview
