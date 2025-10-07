@@ -13,7 +13,7 @@ flowchart TD
 
     TL --> AF[AddTodoForm.jsx]
     TL --> TI[TodoItem.jsx]
-    TL --> UH[useTodos (Custom Hook)]
+    TL --> UH[useTodos]
 
     UH -->|Fetches todos| API[(DummyJSON API)]
     AF -->|onAdd(text)| UH
