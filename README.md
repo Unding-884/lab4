@@ -30,6 +30,7 @@ flowchart TD
 - **TodoList.jsx**: Main container component that manages the todo list display
 - **AddTodoForm.jsx**: Form component for adding new todos
 - **TodoItem.jsx**: Individual todo item component with toggle and delete functionality
+- **useTodos.js**: Custom hook that handles data fetching. CRUD operations, loading and error states. 
 
 ### Data Flow
 1. **Initial Load**: `useTodos` hook fetches data from DummyJSON API
@@ -37,10 +38,3 @@ flowchart TD
 3. **User Actions**: Components trigger functions passed down as props
 4. **State Updates**: Hook functions update local state and sync with API
 5. **Re-rendering**: State changes trigger component re-renders
-
-### Key Features
-- **API Integration**: Fetches todos from external API
-- **CRUD Operations**: Create, Read, Update, Delete functionality
-- **Error Handling**: Graceful error states and fallbacks
-- **Loading States**: Shows loading indicator during API calls
-- **Local State**: Optimistic updates for better UX
