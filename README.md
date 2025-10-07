@@ -5,49 +5,22 @@ A React-based Todo List application that demonstrates component composition, sta
 ## Component Tree + Data Flow Diagram
 
 ```mermaid
-graph TD
-    %% Root Component
-    A[App.jsx] --> TL[TodoList.jsx]
-    
-    %% Main TodoList Component
-    TL --> ATF[AddTodoForm.jsx]
-    TL --> TI[TodoItem.jsx]
-    TL --> UTH[useTodos Hook]
-    
-    %% Data Flow - State Management
-    UTH --> |todos, isLoading, error, addTodo, deleteTodo, toggleTodo| TL
-    
-    %% Props Flow
-    TL --> |onAdd: addTodo| ATF
-    TL --> |todo, onDelete, onToggle| TI
-    
-    %% User Interactions
-    ATF --> |handleSubmit| G[onAdd Function]
-    TI --> |onClick| H[onDelete Function]
-    TI --> |onChange| I[onToggle Function]
-    
-    %% State Updates
-    UTH --> |setState| J[Local State<br/>todos, isLoading, error]
+flowchart TD
 
-    %% Component Details
-    subgraph "Component Details"
-        N["AddTodoForm
-        - Local state: text
-        - Form submission
-        - Input validation"]
-        
-        O["TodoItem
-        - Displays todo text
-        - Checkbox for completion
-        - Delete button
-        - Conditional styling"]
-        
-        P["useTodos Hook
-        - Fetches todos from API
-        - CRUD operations
-        - Error handling
-        - Loading states"]
+    subgraph App[App.jsx]
+        TL[TodoList.jsx]
     end
+
+    TL --> AF[AddTodoForm.jsx]
+    TL --> TI[TodoItem.jsx]
+    TL --> UH[useTodos (Custom Hook)]
+
+    UH -->|Fetches todos| API[(DummyJSON API)]
+    AF -->|onAdd(text)| UH
+    TI -->|onToggle(id), onDelete(id)| UH
+
+    UH -->|Updates state: todos, isLoading, error| TL
+    TL -->|Re-renders UI| TI
 ```
 
 ## Architecture Overview
