@@ -6,11 +6,7 @@ A React-based Todo List application that demonstrates component composition, sta
 
 ```mermaid
 flowchart TD
-
-    subgraph 
-        TL[TodoList.jsx]
-    end
-    App[App.jsx] --> TL
+    App[App.jsx] --> TL[TodoList.jsx] 
     TL --> AF[AddTodoForm.jsx]
     TL --> TI[TodoItem.jsx]
     TL --> UH[useTodos]
