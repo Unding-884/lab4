@@ -16,8 +16,8 @@ flowchart TD
     TL --> UH[useTodos]
 
     UH -->|Fetches todos| API[(DummyJSON API)]
-    AF -->|onAdd(text)| UH
-    TI -->|onToggle(id), onDelete(id)| UH
+    AF -->|onAdd| UH
+    TI -->|onToggle, onDelete| UH
 
     UH -->|Updates state: todos, isLoading, error| TL
     TL -->|Re-renders UI| TI
