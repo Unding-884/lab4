@@ -1,0 +1,13 @@
+.pagination-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+    align-items: center;
+}
+
+.previous-btn, .next-btn, .page{
+    height: 60%;
+    border-radius: 15px;
+    color: white;
+}

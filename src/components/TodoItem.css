@@ -1,6 +1,7 @@
 .todo-item-container{
     width: 595px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin: 8px 0;
     color: #ffffff;
@@ -13,4 +14,35 @@
 .todo-item-delete-button{
     border-radius: 15px;
 
+}
+
+.todo-content{
+    max-width: 80%;
+}
+
+.completed{
+    text-decoration: line-through;
+    color: gray;
+}
+
+.edit-btn{
+    color: aqua;
+    border-radius: 15px;
+}
+
+.edit-input{
+    color: lightgray;
+}
+
+.delete-btn{
+    color: darkred;
+    border-radius: 15px;
+}
+
+.save-btn{
+    color: greenyellow;
+}
+
+.cancel-btn{
+    color: darkorange;
 }
