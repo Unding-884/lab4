@@ -6,17 +6,22 @@ A React-based Todo List application that demonstrates component composition, sta
 
 ```mermaid
 flowchart TD
-    App[App.jsx] --> TL[TodoList.jsx] 
+    App[App.jsx] --> TL[TodoList.jsx]
     TL --> AF[AddTodoForm.jsx]
+    TL --> SB[SearchBar.jsx]
+    TL --> PC[PaginationControls.jsx]
     TL --> TI[TodoItem.jsx]
-    TL --> UH[useTodos]
+    TL --> UH[useTodos.js]
 
-    UH -->|Fetches todos| API[(DummyJSON API)]
+    UH -->|Initial fetch| API[(DummyJSON API)]
+    TL -->|User Input| UH
     AF -->|onAdd| UH
-    TI -->|onToggle, onDelete| UH
+    TI -->|onToggle, onDelete, onEdit| UH
+    SB -->|onChange| UH
+    PC -->|goToNextPage, goToPrevPage, changeLimit| UH
 
-    UH -->|Updates state: todos, isLoading, error| TL
-    TL -->|Re-renders UI| TI
+    UH -->|Updates state: allTodos, todos, searchTerm, pagination| TL
+    TL -->|Re-renders UI with filtered + paginated list| TI
 ```
 
 ## Architecture Overview
@@ -34,3 +39,9 @@ flowchart TD
 3. **User Actions**: Components trigger functions passed down as props
 4. **State Updates**: Hook functions update local state and sync with API
 5. **Re-rendering**: State changes trigger component re-renders
+
+### Patterns
+Container + Presentational Components
+Custom Hook
+Unidirectional Data Flow
+Graceful Degradation
