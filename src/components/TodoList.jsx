@@ -6,7 +6,7 @@ import PaginationControls from "./PaginationControls";
 import "./TodoList.css";
 
 export default function TodoList() {
-  const { todos, isLoading, error,searchTerm, setTerm, currentPage,limitPerPage,totalTodos,goToNextPage,goToPrevPage,deleteTodo, toggleTodo, addTodo } = useTodos();
+  const { todos, isLoading, error,searchTerm, setTerm, currentPage,limitPerPage,totalTodos,goToNextPage,goToPrevPage,deleteTodo, toggleTodo, addTodo, editTodoTitle } = useTodos();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -23,6 +23,7 @@ export default function TodoList() {
                     todo={todo}
                     onDelete={() => deleteTodo(todo.id)}
                     onToggle={() => toggleTodo(todo.id)}
+                    onEdit={editTodoTitle}
                 />
             ))}
       </ul>

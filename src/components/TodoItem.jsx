@@ -9,7 +9,7 @@ export default function TodoItem({ todo, onDelete, onToggle, onEdit }) {
   // Save the edited title
   const handleSave = () => {
     if (editedTitle.trim() === "") return;
-    onEdit(editedTitle);
+    onEdit(todo.id, editedTitle);
     setIsEditing(false);
   };
 
