@@ -24,7 +24,6 @@ export default function TodoList() {
     editTodoTitle 
   } = useTodos();
 
-  // Мемоізуємо колбеки для стабільності референцій
   const handleDeleteTodo = useCallback((id) => {
     deleteTodo(id);
   }, [deleteTodo]);
@@ -33,10 +32,8 @@ export default function TodoList() {
     toggleTodo(id);
   }, [toggleTodo]);
 
-  // Мемоізуємо масив todos для TodoItem компонентів
   const memoizedTodos = useMemo(() => todos, [todos]);
 
-  // Мемоізуємо пагінаційні пропси як об'єкт
   const paginationProps = useMemo(() => ({
     currentPage,
     totalTodos,

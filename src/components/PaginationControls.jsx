@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import "./PaginationControls.css";
 
 function PaginationControls({ currentPage, totalTodos, limitPerPage, goToNextPage, goToPrevPage }) {
-  // Мемоізуємо обчислення для уникнення повторних розрахунків
   const totalPages = useMemo(() => 
     Math.ceil(totalTodos / limitPerPage), 
     [totalTodos, limitPerPage]

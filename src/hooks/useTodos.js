@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const API_URL = "https://dummyjson.com/todos";
 
@@ -128,14 +128,14 @@ const editTodoTitle = async (id, newTitle) => {
   };
 
   // Add todo locally da
-  const addTodo = (text) => {
+  const addTodo = useCallback((text) => {
     const newTodo = {
       id: Date.now(), //milliseconds since 1970
       todo: text,
       completed: false,
     };
     setTodos((prev) => [newTodo, ...prev]);
-  };
+  }, []); // No dependencies - function never changes
 
   return { todos,allTodos, isLoading, error,searchTerm, setTerm, currentPage,limitPerPage,totalTodos,goToNextPage,goToPrevPage,changeLimit,editTodoTitle, deleteTodo, toggleTodo, addTodo };
 }
