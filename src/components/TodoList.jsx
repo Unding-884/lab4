@@ -32,6 +32,14 @@ export default function TodoList() {
     toggleTodo(id);
   }, [toggleTodo]);
 
+  const handleEditTodo = useCallback((id, title) => {
+    editTodoTitle(id, title);
+  }, [editTodoTitle]);
+
+  const stableAddTodo = useCallback((todoText) => {
+    addTodo(todoText);
+  }, [addTodo]);
+
   const memoizedTodos = useMemo(() => todos, [todos]);
 
   const paginationProps = useMemo(() => ({
@@ -49,7 +57,7 @@ export default function TodoList() {
     <div className="todo-list">
       <h1>Todo List</h1>
       <SearchBar searchTerm={searchTerm} onChange={setTerm}/>
-      <AddTodoForm onAdd={addTodo} />
+      <AddTodoForm onAdd={stableAddTodo} />
       <ul style={{ listStyle: "none", padding: 0 }}>
         {memoizedTodos.map((todo) => (
           <TodoItem
@@ -57,7 +65,7 @@ export default function TodoList() {
             todo={todo}
             onDelete={handleDeleteTodo}
             onToggle={handleToggleTodo}
-            onEdit={editTodoTitle}
+            onEdit={handleEditTodo}
           />
         ))}
       </ul>

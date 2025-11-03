@@ -57,42 +57,42 @@ export function useTodos() {
     setPage(1);
   }
 
-const editTodoTitle = async (id, newTitle) => {
-  try {
-    const res = await fetch(`${API_URL}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ todo: newTitle }),
-    });
-
-    let updated = null;
+  const editTodoTitle = useCallback(async (id, newTitle) => {
     try {
-      updated = await res.json();
-    } catch {
-      updated = { todo: newTitle }; // fallback if no JSON body
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ todo: newTitle }),
+      });
+
+      let updated = null;
+      try {
+        updated = await res.json();
+      } catch {
+        updated = { todo: newTitle }; // fallback if no JSON body
+      }
+
+      if (!res.ok) throw new Error("Failed to update todo title");
+
+      setAllTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, todo: updated.todo } : todo));
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, todo: updated.todo } : todo));
+    } catch (err) { //update todo locally
+      setError(err.message);
+      setAllTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, todo: newTitle } : todo));
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, todo: newTitle } : todo));
     }
-
-    if (!res.ok) throw new Error("Failed to update todo title");
-
-    setAllTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, todo: updated.todo } : todo));
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, todo: updated.todo } : todo));
-  } catch (err) { //update todo locally
-    setError(err.message);
-    setAllTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, todo: newTitle } : todo));
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, todo: newTitle } : todo));
-  }
-};
+  }); 
 
 
-  const deleteTodo = async (id) => {
+  const deleteTodo = useCallback(async (id) => {
     try {
       await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       setTodos((prev) => prev.filter((t) => t.id !== id));
@@ -100,9 +100,9 @@ const editTodoTitle = async (id, newTitle) => {
       setError(err.message);
       setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))); //delete todo locally
     }
-  };
+  });
 
-  const toggleTodo = async (id) => {
+  const toggleTodo = useCallback(async (id) => {
     const todo = todos.find((t) => t.id === id);
     if (!todo) return;
     try {
@@ -125,9 +125,8 @@ const editTodoTitle = async (id, newTitle) => {
     } catch (err) {
       setError(err.message);
     }
-  };
+  }, [todos]);
 
-  // Add todo locally da
   const addTodo = useCallback((text) => {
     const newTodo = {
       id: Date.now(), //milliseconds since 1970
@@ -135,7 +134,7 @@ const editTodoTitle = async (id, newTitle) => {
       completed: false,
     };
     setTodos((prev) => [newTodo, ...prev]);
-  }, []); // No dependencies - function never changes
+  }, []);
 
   return { todos,allTodos, isLoading, error,searchTerm, setTerm, currentPage,limitPerPage,totalTodos,goToNextPage,goToPrevPage,changeLimit,editTodoTitle, deleteTodo, toggleTodo, addTodo };
 }
