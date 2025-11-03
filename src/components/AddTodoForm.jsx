@@ -1,23 +1,31 @@
-import { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./AddTodoForm.css";
 
-export default function AddTodoForm({ onAdd }) {
+function AddTodoForm({ onAdd }) {
   const [text, setText] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!text.trim()) return;
-    onAdd(text);
-    setText("");
-  };
+  const handleChange = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const trimmed = text.trim();
+      if (!trimmed) return;
+      onAdd(trimmed);
+      setText("");
+    },
+    [text, onAdd]
+  );
 
   return (
-    <form onSubmit={handleSubmit} className = "todo-form">
+    <form onSubmit={handleSubmit} className="todo-form">
       <input
         type="text"
         value={text}
         placeholder="Add new todo..."
-        onChange={(e) => setText(e.target.value)}
+        onChange={handleChange}
         className="todo-form-input"
       />
       <button type="submit" className="todo-form-button">
@@ -26,3 +34,5 @@ export default function AddTodoForm({ onAdd }) {
     </form>
   );
 }
+
+export default React.memo(AddTodoForm);

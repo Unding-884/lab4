@@ -1,17 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import "./TodoItem.css";
 
-export default function TodoItem({ todo, onDelete, onToggle, onEdit }) {
-  // Local state for editing
+function TodoItem({ todo, onDelete, onToggle, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.todo);
 
-  // Save the edited title
-  const handleSave = () => {
-    if (editedTitle.trim() === "") return;
-    onEdit(todo.id, editedTitle);
+  const handleSave = useCallback(() => {
+    const trimmed = editedTitle.trim();
+    if (trimmed === "") return;
+    onEdit(todo.id, trimmed);
     setIsEditing(false);
-  };
+  }, [editedTitle, onEdit, todo.id]);
+
+  const handleCancel = useCallback(() => {
+    setEditedTitle(todo.todo);
+    setIsEditing(false);
+  }, [todo.todo]);
+
+  const handleEdit = useCallback(() => {
+    setIsEditing(true);
+  }, []);
+
+  const handleDelete = useCallback(() => {
+    onDelete(todo.id);
+  }, [onDelete, todo.id]);
+
+  const handleToggle = useCallback(() => {
+    onToggle(todo.id);
+  }, [onToggle, todo.id]);
+
+  const handleInputChange = useCallback((e) => {
+    setEditedTitle(e.target.value);
+  }, []);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "Enter") handleSave();
+  }, [handleSave]);
+
+  const todoTextClass = useMemo(
+    () => `todo-text ${todo.completed ? "completed" : ""}`,
+    [todo.completed]
+  );
 
   return (
     <li className="todo-item-container">
@@ -19,45 +48,37 @@ export default function TodoItem({ todo, onDelete, onToggle, onEdit }) {
         <input
           type="checkbox"
           checked={todo.completed}
-          onChange={onToggle}
+          onChange={handleToggle}
         />
-        {isEditing ? (<input
+        {isEditing ? (
+          <input
             type="text"
             value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSave();
-            }}
-            className="edit-input"/>)
-            :
-            (<span className={`todo-text ${todo.completed ? "completed" : ""}`}>
-            {todo.todo}
-          </span>
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            className="edit-input"
+          />
+        ) : (
+          <span className={todoTextClass}>{todo.todo}</span>
         )}
       </div>
 
       <div className="todo-actions">
         {isEditing ? (
           <>
-            <button className="save-btn" onClick={handleSave} >
+            <button className="save-btn" onClick={handleSave}>
               Save
             </button>
-            <button
-              className="cancel-btn"
-              onClick={() => {
-                setEditedTitle(todo.todo);
-                setIsEditing(false);
-              }}
-            >
+            <button className="cancel-btn" onClick={handleCancel}>
               Cancel
             </button>
           </>
         ) : (
           <>
-            <button className="edit-btn" onClick={() => setIsEditing(true)}>
+            <button className="edit-btn" onClick={handleEdit}>
               Edit
             </button>
-            <button className="delete-btn" onClick={onDelete}>
+            <button className="delete-btn" onClick={handleDelete}>
               Delete
             </button>
           </>
@@ -66,3 +87,5 @@ export default function TodoItem({ todo, onDelete, onToggle, onEdit }) {
     </li>
   );
 }
+
+export default React.memo(TodoItem);
