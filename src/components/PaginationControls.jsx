@@ -1,21 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import "./PaginationControls.css";
 
 function PaginationControls({ currentPage, totalTodos, limitPerPage, goToNextPage, goToPrevPage }) {
-  const totalPages = useMemo(() => 
-    Math.ceil(totalTodos / limitPerPage), 
-    [totalTodos, limitPerPage]
-  );
-
-  const isPrevDisabled = useMemo(() => 
-    currentPage === 1, 
-    [currentPage]
-  );
-
-  const isNextDisabled = useMemo(() => 
-    currentPage * limitPerPage >= totalTodos, 
-    [currentPage, limitPerPage, totalTodos]
-  );
+  const totalPages = Math.ceil(totalTodos / limitPerPage);
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = currentPage * limitPerPage >= totalTodos;
 
   return (
     <div className="pagination-container">

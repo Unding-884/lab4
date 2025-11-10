@@ -1,11 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import "./SearchBar.css";
 
 function SearchBar({ searchTerm, onChange }) {
-  const handleChange = useCallback((e) => {
-    onChange(e.target.value);
-  }, [onChange]);
-
   return (
     <div className="search-bar">
       <input
@@ -13,7 +9,7 @@ function SearchBar({ searchTerm, onChange }) {
         className="search-input"
         placeholder="Search todos"
         value={searchTerm}
-        onChange={handleChange}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );

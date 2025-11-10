@@ -1,46 +1,37 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState } from "react";
 import "./TodoItem.css";
 
 function TodoItem({ todo, onDelete, onToggle, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.todo);
 
-  const handleSave = useCallback(() => {
+  // internal handlers are simple; remove useCallback to avoid unnecessary hook overhead
+  const handleSave = () => {
     const trimmed = editedTitle.trim();
     if (trimmed === "") return;
     onEdit(todo.id, trimmed);
     setIsEditing(false);
-  }, [editedTitle, onEdit, todo.id]);
+  };
 
-  const handleCancel = useCallback(() => {
+  const handleCancel = () => {
     setEditedTitle(todo.todo);
     setIsEditing(false);
-  }, [todo.todo]);
+  };
 
-  const handleEdit = useCallback(() => {
-    setIsEditing(true);
-  }, []);
+  const handleEdit = () => setIsEditing(true);
 
-  const handleDelete = useCallback(() => {
-    onDelete(todo.id);
-  }, [onDelete, todo.id]);
+  const handleDelete = () => onDelete(todo.id);
 
-  const handleToggle = useCallback(() => {
-    onToggle(todo.id);
-  }, [onToggle, todo.id]);
+  const handleToggle = () => onToggle(todo.id);
 
-  const handleInputChange = useCallback((e) => {
-    setEditedTitle(e.target.value);
-  }, []);
+  const handleInputChange = (e) => setEditedTitle(e.target.value);
 
-  const handleKeyDown = useCallback((e) => {
+  const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSave();
-  }, [handleSave]);
+  };
 
-  const todoTextClass = useMemo(
-    () => `todo-text ${todo.completed ? "completed" : ""}`,
-    [todo.completed]
-  );
+  // class string is cheap to compute inline
+  const todoTextClass = `todo-text ${todo.completed ? "completed" : ""}`;
 
   return (
     <li className="todo-item-container">

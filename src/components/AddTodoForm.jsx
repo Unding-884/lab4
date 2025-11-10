@@ -1,23 +1,21 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import "./AddTodoForm.css";
 
 function AddTodoForm({ onAdd }) {
   const [text, setText] = useState("");
 
-  const handleChange = useCallback((e) => {
+  // removed useCallback: internal handlers are cheap and add hook overhead
+  const handleChange = (e) => {
     setText(e.target.value);
-  }, []);
+  };
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      const trimmed = text.trim();
-      if (!trimmed) return;
-      onAdd(trimmed);
-      setText("");
-    },
-    [text, onAdd]
-  );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    onAdd?.(trimmed);
+    setText("");
+  };
 
   return (
     <form onSubmit={handleSubmit} className="todo-form">

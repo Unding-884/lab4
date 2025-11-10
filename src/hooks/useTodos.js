@@ -32,25 +32,23 @@ export function useTodos() {
       }
     }
     fetchTodos();
-  }, [currentPage, limitPerPage]); // remove currentPage, limitPerPage for one call
+  }, [currentPage, limitPerPage]);
 
   useEffect(() => {
     const filtered = allTodos.filter(todo => todo.todo.toLowerCase().includes(searchTerm.toLowerCase()));
     setTodos(filtered);
   }, [searchTerm, allTodos]);
 
-  function goToNextPage() {
-    const totalPages = Math.ceil(totalTodos / limitPerPage);
-    if (currentPage < totalPages) {
-      setPage(currentPage + 1);
-    }
-  }
+  const goToNextPage = useCallback(() => {
+    setPage(prev => {
+      const totalPages = Math.ceil(totalTodos / limitPerPage) || 1;
+      return prev < totalPages ? prev + 1 : prev;
+    });
+  }, [totalTodos, limitPerPage]);
 
-  function goToPrevPage(){
-    if(currentPage > 1) {
-      setPage(currentPage - 1)
-    }
-  }
+  const goToPrevPage = useCallback(() => {
+    setPage(prev => (prev > 1 ? prev - 1 : prev));
+  }, []);
 
   function changeLimit(limit){
     setLimit(limit);  ``

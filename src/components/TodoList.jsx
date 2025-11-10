@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import TodoItem from "./TodoItem";
 import AddTodoForm from "./AddTodoForm";
 import { useTodos } from "../hooks/useTodos";
@@ -24,6 +24,7 @@ export default function TodoList() {
     editTodoTitle 
   } = useTodos();
 
+  // Keep callbacks passed to children memoized so prop references stay stable
   const handleDeleteTodo = useCallback((id) => {
     deleteTodo(id);
   }, [deleteTodo]);
@@ -40,26 +41,17 @@ export default function TodoList() {
     addTodo(todoText);
   }, [addTodo]);
 
-  const memoizedTodos = useMemo(() => todos, [todos]);
-
-  const paginationProps = useMemo(() => ({
-    currentPage,
-    totalTodos,
-    limitPerPage,
-    goToNextPage,
-    goToPrevPage
-  }), [currentPage, totalTodos, limitPerPage, goToNextPage, goToPrevPage]);
-
+  // do not memoize todos or pagination props aggressively — pass primitives/handlers directly
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="todo-list">
       <h1>Todo List</h1>
-      <SearchBar searchTerm={searchTerm} onChange={setTerm}/>
+      <SearchBar searchTerm={searchTerm} onChange={setTerm} />
       <AddTodoForm onAdd={stableAddTodo} />
       <ul style={{ listStyle: "none", padding: 0 }}>
-        {memoizedTodos.map((todo) => (
+        {todos.map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
@@ -69,7 +61,13 @@ export default function TodoList() {
           />
         ))}
       </ul>
-      <PaginationControls {...paginationProps} />
+      <PaginationControls
+        currentPage={currentPage}
+        totalTodos={totalTodos}
+        limitPerPage={limitPerPage}
+        goToNextPage={goToNextPage}
+        goToPrevPage={goToPrevPage}
+      />
     </div>
   );
 }
