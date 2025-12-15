@@ -7,7 +7,7 @@ export default function TodoPage() {
         Todo List (MUI version - coming soon)
       </Typography>
       <Typography variant="body1">
-        This will be your refactored Todo List with MUI components and Zustand store.
+        Start of final project
       </Typography>
     </div>
   );
