@@ -1,25 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "./theme/ThemeProvider";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import TodoPage from "./pages/TodoPage";
-import Lab4 from "./pages/Lab4";
-import TodoList from "./components/TodoList";
-import "./App.css";
+import { BrowserRouter} from "react-router-dom";
+import { ThemeProviderZustand } from "./theme/ThemeProviderZustand";
+import AppRoute from "./components/AppRoute.jsx"
 
 function App() {
   return (
-    <ThemeProvider>
+    <ThemeProviderZustand>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="todo-list" element={<TodoPage />} />
-            <Route path="lab4" element={<Lab4 />} />
-          </Route>
-        </Routes>
+        <AppRoute/>
       </BrowserRouter>
-    </ThemeProvider>
+    </ThemeProviderZustand>
   );
 }
 

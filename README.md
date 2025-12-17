@@ -1,4 +1,119 @@
-# Todo List App - React + Vite
+# Student Portfolio - React SPA
+
+A modern React Single Page Application demonstrating full-stack frontend development with Material UI, Zustand state management, React Router, and theme switching.
+
+---
+
+## 📋 Component (UI) Tree
+
+```
+App.jsx
+└─ ThemeProviderZustand
+   └─ BrowserRouter
+      └─ AppRoute
+         └─ Layout
+            ├─ AppBar (Navigation + Theme Toggle)
+            └─ Outlet (Route Content)
+               ├─ Home (/)
+               ├─ TodoPage (/todo-list)
+               │  ├─ AddTodoFormMUI
+               │  ├─ SearchBarMUI
+               │  ├─ TodoItemMUI (list)
+               │  └─ PaginationControlsMUI
+               └─ Lab4 (/lab4)
+                  └─ TodoList (original)
+```
+
+**Component Details:**
+
+### Page Components
+- **Home** - Landing page with project overview
+- **TodoPage** - Main MUI Todo List connected to Zustand
+- **Lab4** - Original Todo List for comparison
+
+### Todo Components (MUI)
+- **TodoItemMUI** - Card with checkbox, edit/delete buttons, inline editing
+- **AddTodoFormMUI** - TextField + Button for adding todos
+- **SearchBarMUI** - Search input with icon
+- **PaginationControlsMUI** - Navigation and items-per-page selector
+
+### Layout Components
+- **Layout** - App shell with AppBar and content area
+- **AppBar** - Navigation links and theme toggle button
+- **AppRoute** - Route definitions
+
+---
+
+## 🏗️ Архітектурні рішення
+
+### State Management
+**Zustand** was chosen for global state:
+- **useTodoStore.js** - Todos, pagination, search, CRUD operations
+- **useThemeStore.js** - Theme mode with localStorage persistence
+
+**Why Zustand?**
+- Minimal boilerplate compared to Redux
+- No Provider nesting (unlike Context API)
+- Built-in devtools support
+- Easy selective subscriptions (prevents unnecessary re-renders)
+- Built-in persistence middleware
+
+### Optimization Strategy
+1. **Zustand Selectors** - Components subscribe only to needed state slices
+   ```jsx
+   const todos = useTodoStore((state) => state.todos);
+   ```
+2. **React.memo** - All child components memoized to prevent re-renders
+3. **Optimistic Updates** - UI updates immediately, syncs with API in background
+4. **Server-side Pagination** - Fetch only needed items from API
+
+### Data Flow
+```
+User Action → Zustand Store Action → Optimistic State Update → API Call → Sync/Revert
+```
+
+### Routing Architecture
+- **React Router v6** with nested routes
+- Layout component wraps all pages
+- Preserves old Lab4 implementation at `/lab4`
+- New MUI version at `/todo-list`
+
+### Theme System
+- **MUI Theme** with custom light/dark palettes
+- **ThemeProviderZustand** reads mode from Zustand
+- **Persistent** - Saves preference to localStorage
+- All components use theme tokens (`'background.paper'`, `'text.primary'`, etc.)
+
+---
+
+## 🎨 Вибір компонентної бібліотеки
+
+### Material UI (MUI)
+
+**Переваги:**
+- ✅ **Production-ready** - Used by Google, Netflix, NASA
+- ✅ **Complete ecosystem** - Components, icons, theming, utilities
+- ✅ **Excellent theming** - Built-in dark mode support
+- ✅ **Accessibility** - ARIA attributes, keyboard navigation
+- ✅ **TypeScript support** - Full type definitions
+- ✅ **Customization** - `sx` prop for inline styles with theme access
+- ✅ **Documentation** - Comprehensive examples and API docs
+
+**Чому MUI, а не інші?**
+- **vs Ant Design** - Better theme customization, more modern design
+- **vs Chakra UI** - Larger component library, better ecosystem
+- **vs shadcn/ui** - No need for TypeScript setup, faster implementation
+
+**Key MUI Features Used:**
+- **Components**: Button, TextField, Card, Checkbox, IconButton, AppBar, Paper, Typography
+- **Icons**: @mui/icons-material (Edit, Delete, Save, Search, etc.)
+- **Theming**: createTheme, ThemeProvider, CssBaseline
+- **Layout**: Box, Stack, Container (flexbox utilities)
+- **Styling**: `sx` prop with theme tokens
+
+---
+
+## Original Lab 4 Documentation
 
 A React-based Todo List application that demonstrates component composition, state management, and API integration.
 
