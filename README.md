@@ -6,22 +6,30 @@ A modern React Single Page Application demonstrating full-stack frontend develop
 
 ## 📋 Component (UI) Tree
 
-```
-App.jsx
-└─ ThemeProviderZustand
-   └─ BrowserRouter
-      └─ AppRoute
-         └─ Layout
-            ├─ AppBar (Navigation + Theme Toggle)
-            └─ Outlet (Route Content)
-               ├─ Home (/)
-               ├─ TodoPage (/todo-list)
-               │  ├─ AddTodoFormMUI
-               │  ├─ SearchBarMUI
-               │  ├─ TodoItemMUI (list)
-               │  └─ PaginationControlsMUI
-               └─ Lab4 (/lab4)
-                  └─ TodoList (original)
+```mermaid
+graph TD
+subgraph App
+    ThemeProvider[ThemeProviderZustand] --> Router[BrowserRouter]
+    Router --> Routes[AppRoute]
+    Routes --> Layout[Layout]
+
+    Layout --> AppBar[AppBar]
+    Layout --> Outlet[Outlet]
+
+    AppBar -->|"useThemeStore: mode, toggleTheme"| ThemeStore[(Zustand: useThemeStore)]
+    
+    Outlet --> Home["Home"]
+    Outlet --> TodoPage["TodoPage"]
+
+    TodoPage -->|"useThemeStore selectors"| TodoStore[(Zustand: useTodoStore)]
+    
+    TodoPage -->|"onAdd(text)"| AddTodo[AddTodoFormMUI]
+    TodoPage -->|"searchTerm, onChange(value)"| SearchBar[SearchBarMUI]
+    TodoPage -->|"todo, onToggle(id), onDelete(id), onEdit(id, title)"| TodoItem["TodoItemMUI (mapped list)"]
+    TodoPage -->|"currentPage, totalTodos, limitPerPage, onNextPage(), onPrevPage(), onChangeLimit(limit)"| Pagination[PaginationControlsMUI]
+
+    TodoStore -->|"todos, isLoading, error, searchTerm, pagination, actions"| TodoPage
+end
 ```
 
 **Component Details:**
