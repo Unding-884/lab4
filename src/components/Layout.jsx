@@ -4,7 +4,6 @@ import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useTheme } from '../theme/ThemeProvider';
 
 export default function Layout() {
-  const { mode, toggleTheme } = useTheme();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
