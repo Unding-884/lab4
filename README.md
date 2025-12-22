@@ -4,7 +4,7 @@ A modern React Single Page Application demonstrating full-stack frontend develop
 
 ---
 
-## 📋 Component (UI) Tree
+## Component (UI) Tree
 
 ```mermaid
 graph TD
@@ -52,7 +52,7 @@ end
 
 ---
 
-## 🏗️ Архітектурні рішення
+## Архітектурні рішення
 
 ### State Management
 **Zustand** was chosen for global state:
@@ -83,31 +83,27 @@ User Action → Zustand Store Action → Optimistic State Update → API Call �
 ### Routing Architecture
 - **React Router v6** with nested routes
 - Layout component wraps all pages
-- Preserves old Lab4 implementation at `/lab4`
-- New MUI version at `/todo-list`
 
 ### Theme System
 - **MUI Theme** with custom light/dark palettes
 - **ThemeProviderZustand** reads mode from Zustand
-- **Persistent** - Saves preference to localStorage
 - All components use theme tokens (`'background.paper'`, `'text.primary'`, etc.)
 
 ---
 
-## 🎨 Вибір компонентної бібліотеки
+## Вибір компонентної бібліотеки
 
 ### Material UI (MUI)
 
-**Переваги:**
-- ✅ **Production-ready** - Used by Google, Netflix, NASA
-- ✅ **Complete ecosystem** - Components, icons, theming, utilities
-- ✅ **Excellent theming** - Built-in dark mode support
-- ✅ **Accessibility** - ARIA attributes, keyboard navigation
-- ✅ **TypeScript support** - Full type definitions
-- ✅ **Customization** - `sx` prop for inline styles with theme access
-- ✅ **Documentation** - Comprehensive examples and API docs
+**Pros:**
+- **Production-ready** - Used by Google, Netflix, NASA
+- **Complete ecosystem** - Components, icons, theming, utilities
+- **Excellent theming** - Built-in dark mode support
+- **Accessibility** - ARIA attributes, keyboard navigation
+- **TypeScript support** - Full type definitions
+- **Customization** - `sx` prop for inline styles with theme access
 
-**Чому MUI, а не інші?**
+**Why MUI?**
 - **vs Ant Design** - Better theme customization, more modern design
 - **vs Chakra UI** - Larger component library, better ecosystem
 - **vs shadcn/ui** - No need for TypeScript setup, faster implementation
