@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect} from 'react';
 import { Typography, Box, CircularProgress, Alert } from '@mui/material';
 import { useTodoStore } from '../store/useTodoStore';
 import AddTodoFormMUI from '../components/todo/AddTodoFormMUI';
@@ -7,7 +7,7 @@ import TodoItemMUI from '../components/todo/TodoItemMUI';
 import PaginationControlsMUI from '../components/todo/PaginationControlsMUI';
 
 export default function TodoPage() {
-  // Use selective subscriptions to avoid re-renders when unrelated state changes
+  // Selective subscriptions to avoid re-renders when unrelated state changes
   const todos = useTodoStore((state) => state.todos);
   const isLoading = useTodoStore((state) => state.isLoading);
   const error = useTodoStore((state) => state.error);
@@ -16,7 +16,7 @@ export default function TodoPage() {
   const limitPerPage = useTodoStore((state) => state.limitPerPage);
   const totalTodos = useTodoStore((state) => state.totalTodos);
   
-  // Actions - these are stable references
+  // Actions
   const setSearchTerm = useTodoStore((state) => state.setSearchTerm);
   const fetchTodos = useTodoStore((state) => state.fetchTodos);
   const goToNextPage = useTodoStore((state) => state.goToNextPage);
