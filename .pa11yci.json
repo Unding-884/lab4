@@ -1,12 +1,15 @@
 {
+  "defaults": {
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
+  },
   "runners": ["axe"],
   "standard": "WCAG2AA",
   "timeout": 10000,
   "wait": 5000,
-  "chromeLaunchConfig": {
-    "args": ["--no-sandbox", "--disable-setuid-sandbox"]
-  },
   "urls": [
+    "http://localhost:3000",
     "http://127.0.0.1:4173",
     "http://127.0.0.1:4173/todo-list",
     "http://127.0.0.1:4173/lab4"
