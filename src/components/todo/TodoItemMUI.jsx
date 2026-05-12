@@ -7,7 +7,8 @@ import {
   Typography, 
   TextField,
   Box,
-  Stack
+  Stack,
+  FormControlLabel
 } from '@mui/material';
 import { Delete, Edit, Save, Cancel } from '@mui/icons-material';
 
@@ -43,14 +44,32 @@ function TodoItemMUI({ todo, onToggle, onDelete, onEdit }) {
     >
       <CardContent>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <Checkbox
-            checked={todo.completed}
-            onChange={() => onToggle(todo.id)}
-            color="primary"
-            aria-label={`Mark ${todo.todo} as ${todo.completed ? 'incomplete' : 'complete'}`}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={todo.completed}
+                onChange={() => onToggle(todo.id)}
+                color="primary"
+              />
+            }
+            label={
+              isEditing ? null : (
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textDecoration: todo.completed ? 'line-through' : 'none',
+                    color: todo.completed ? 'text.secondary' : 'text.primary',
+                    ml: 1,
+                  }}
+                >
+                  {todo.todo}
+                </Typography>
+              )
+            }
+            sx={{ flex: 1, m: 0 }}
           />
-          
-          {isEditing ? (
+
+          {isEditing && (
             <TextField
               fullWidth
               value={editedTitle}
@@ -59,18 +78,8 @@ function TodoItemMUI({ todo, onToggle, onDelete, onEdit }) {
               autoFocus
               size="small"
               sx={{ flexGrow: 1 }}
+              aria-label="Edit todo text"
             />
-          ) : (
-            <Typography
-              variant="body1"
-              sx={{
-                flexGrow: 1,
-                textDecoration: todo.completed ? 'line-through' : 'none',
-                color: todo.completed ? 'text.secondary' : 'text.primary',
-              }}
-            >
-              {todo.todo}
-            </Typography>
           )}
 
           <Box>
