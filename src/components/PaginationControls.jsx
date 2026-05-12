@@ -12,16 +12,18 @@ function PaginationControls({ currentPage, totalTodos, limitPerPage, goToNextPag
         disabled={isPrevDisabled}
         onClick={goToPrevPage}
         className="previous-btn"
+        aria-label="Go to previous page"
       >
         Previous
       </button>
-      <p className="page">
+      <p className="page" aria-label={`Page ${currentPage} of ${totalPages}`}>
         {currentPage} / {totalPages}
       </p>
       <button
         disabled={isNextDisabled}
         onClick={goToNextPage}
         className="next-btn"
+        aria-label="Go to next page"
       >
         Next
       </button>

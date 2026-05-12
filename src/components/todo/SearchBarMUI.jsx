@@ -12,6 +12,8 @@ function SearchBarMUI({ searchTerm, onChange }) {
         placeholder="Search todos..."
         variant="outlined"
         size="medium"
+        label="Search todos"
+        aria-label="Search todos"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

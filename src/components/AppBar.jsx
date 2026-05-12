@@ -37,7 +37,12 @@ export default function AppBar(){
             >
               Lab 4
             </Button>
-            <IconButton sx={{ ml: 1 }} onClick={toggleTheme} color="inherit">
+            <IconButton 
+              sx={{ ml: 1 }} 
+              onClick={toggleTheme} 
+              color="inherit"
+              aria-label="Toggle dark and light mode"
+            >
               {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
           </Toolbar>

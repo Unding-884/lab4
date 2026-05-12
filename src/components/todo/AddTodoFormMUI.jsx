@@ -24,6 +24,8 @@ function AddTodoFormMUI({ onAdd }) {
             placeholder="Add new todo..."
             variant="outlined"
             size="medium"
+            label="Add new todo"
+            aria-label="Add new todo"
           />
           <Button
             type="submit"

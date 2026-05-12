@@ -22,27 +22,65 @@
 
 .completed{
     text-decoration: line-through;
-    color: gray;
-}
-
-.edit-btn{
-    color: aqua;
-    border-radius: 15px;
+    color: #a0a0a0;
 }
 
 .edit-input{
     color: lightgray;
 }
 
-.delete-btn{
-    color: darkred;
+.edit-btn{
+    color: #00b8cc;
     border-radius: 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+}
+
+.edit-btn:hover {
+    opacity: 0.8;
+}
+
+.delete-btn{
+    color: #cc4444;
+    border-radius: 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+}
+
+.delete-btn:hover {
+    opacity: 0.8;
 }
 
 .save-btn{
-    color: greenyellow;
+    color: #66dd00;
+    border-radius: 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+}
+
+.save-btn:hover {
+    opacity: 0.8;
 }
 
 .cancel-btn{
-    color: darkorange;
+    color: #ff9800;
+    border-radius: 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+}
+
+.cancel-btn:hover {
+    opacity: 0.8;
 }

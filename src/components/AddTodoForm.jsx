@@ -25,6 +25,7 @@ function AddTodoForm({ onAdd }) {
         placeholder="Add new todo..."
         onChange={handleChange}
         className="todo-form-input"
+        aria-label="Add new todo"
       />
       <button type="submit" className="todo-form-button">
         Add

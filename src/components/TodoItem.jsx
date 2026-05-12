@@ -40,6 +40,7 @@ function TodoItem({ todo, onDelete, onToggle, onEdit }) {
           type="checkbox"
           checked={todo.completed}
           onChange={handleToggle}
+          aria-label={`Mark ${todo.todo} as ${todo.completed ? 'incomplete' : 'complete'}`}
         />
         {isEditing ? (
           <input

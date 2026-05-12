@@ -47,6 +47,7 @@ function TodoItemMUI({ todo, onToggle, onDelete, onEdit }) {
             checked={todo.completed}
             onChange={() => onToggle(todo.id)}
             color="primary"
+            aria-label={`Mark ${todo.todo} as ${todo.completed ? 'incomplete' : 'complete'}`}
           />
           
           {isEditing ? (

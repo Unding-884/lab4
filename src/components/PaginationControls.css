@@ -6,8 +6,32 @@
     align-items: center;
 }
 
-.previous-btn, .next-btn, .page{
+.previous-btn, .next-btn{
     height: 60%;
     border-radius: 15px;
-    color: white;
+    color: #ffffff;
+    background-color: #1976d2;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.previous-btn:hover:not(:disabled), .next-btn:hover:not(:disabled) {
+    background-color: #1565c0;
+}
+
+.previous-btn:disabled, .next-btn:disabled {
+    background-color: #9e9e9e;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.page{
+    height: 60%;
+    border-radius: 15px;
+    color: #ffffff;
+    margin: 0 16px;
+    font-weight: 500;
 }

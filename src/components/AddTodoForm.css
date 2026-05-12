@@ -4,18 +4,32 @@
     flex-direction: row;
     justify-content: space-between;
     width: 85%;
-
 }
 
 .todo-form-input{
     padding: 8px;
     width: 80%;
     border-radius: 15px;
-    color: aliceblue;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.todo-form-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .todo-form-button{
-    padding: 8px;
+    padding: 8px 16px;
     border-radius: 15px;
-    color: aliceblue;
+    color: #ffffff;
+    background-color: #1976d2;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.todo-form-button:hover {
+    background-color: #1565c0;
 }

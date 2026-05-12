@@ -10,6 +10,7 @@ function SearchBar({ searchTerm, onChange }) {
         placeholder="Search todos"
         value={searchTerm}
         onChange={(e) => onChange(e.target.value)}
+        aria-label="Search todos"
       />
     </div>
   );
